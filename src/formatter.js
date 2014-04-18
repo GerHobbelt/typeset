@@ -1,4 +1,16 @@
-/*global Typeset.linebreak*/
+/**
+ * Depenencies
+ */
+
+var Hypher = require('hypher');
+var pattern = require('hypher-en-us');
+var linebreak = require('./linebreak');
+
+/**
+ * Expose `formatter`
+ */
+
+module.exports = exports = formatter;
 
 /*!
  * Knuth and Plass line breaking algorithm in JavaScript
@@ -7,9 +19,8 @@
  * Copyright 2009-2010, Bram Stein
  * All rights reserved.
  */
-Typeset.formatter = function (measureText, options) {
-	var linebreak = Typeset.linebreak;
 
+function formatter(measureText, options) {
     var spaceWidth = measureText(' '),
         o = {
             space: {
@@ -18,7 +29,7 @@ Typeset.formatter = function (measureText, options) {
                 shrink: options && options.space.shrink || 9
             }
         },
-        h = new Hypher(Hypher.en),
+        h = new Hypher(pattern),
         hyphenWidth = measureText('-'),
         hyphenPenalty = 100;
 
@@ -119,12 +130,14 @@ Typeset.formatter = function (measureText, options) {
             return nodes;
         }
     };
+}
+
+formatter.defaults = {
+  space: {
+      width: 3,
+      stretch: 6,
+      shrink: 9
+  }
 };
 
-Typeset.formatter.defaults = {
-    space: {
-        width: 3,
-        stretch: 6,
-        shrink: 9
-    }
-};
+exports.linebreak = linebreak;

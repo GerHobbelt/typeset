@@ -1,3 +1,7 @@
+var formatter = require('typeset');
+var linebreak = formatter.linebreak;
+
+
 jQuery(function ($) {
 	var ruler = $('<div class="example"></div>').css({
 			visibility: 'hidden',
@@ -11,7 +15,7 @@ jQuery(function ($) {
 
 	$('body').append(ruler);
 
-	format = Typeset.formatter(function (str) {
+	format = formatter(function (str) {
 		if (str !== ' ') {
 			return ruler.text(str).width();
 		} else {
@@ -21,7 +25,7 @@ jQuery(function ($) {
 
 	function browserAssistTypeset(identifier, text, type, lineLengths, tolerance) {
 		var nodes = format[type](text),
-			breaks = Typeset.linebreak(nodes, lineLengths, {tolerance: tolerance}),
+			breaks = linebreak(nodes, lineLengths, {tolerance: tolerance}),
 			lines = [],
 			i, point, r, lineStart,
 			browserAssist = $(identifier).after('<ul></ul>'),
@@ -35,7 +39,7 @@ jQuery(function ($) {
 
 			for (var j = lineStart; j < nodes.length; j += 1) {
 				// After a line break, we skip any nodes unless they are boxes or forced breaks.
-				if (nodes[j].type === 'box' || (nodes[j].type === 'penalty' && nodes[j].penalty === -Typeset.linebreak.infinity)) {
+				if (nodes[j].type === 'box' || (nodes[j].type === 'penalty' && nodes[j].penalty === -linebreak.infinity)) {
 					lineStart = j;
 					break;
 				}

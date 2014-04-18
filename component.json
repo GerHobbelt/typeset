@@ -1,0 +1,15 @@
+{
+  "name": "typeset",
+  "version": "0.0.1",
+  "dependencies": {
+    "mnmly/hypher": "0.2.1",
+    "mnmly/hypher-en-us": "0.0.1"
+  },
+  "main": "src/formatter.js",
+  "scripts": [
+    "src/formatter.js",
+    "src/linebreak.js",
+    "src/linked-list.js"
+  ]
+}
+
